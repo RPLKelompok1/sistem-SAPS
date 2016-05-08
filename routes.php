@@ -23,8 +23,10 @@
         break;
       case 'SAPS':
         require_once('models/User.php');
+        require_once('models/Sertifikat.php');
         require_once('models/Pendaftaran_SAPS.php');
         require_once('models/Notif.php');
+        require_once('models/Category.php');
         require_once('controllers/Sertifikat_controller.php');
         $controller = new SAPS_Controller();      
         break;
@@ -33,17 +35,5 @@
     $controller->{ $action }();
   }
 
-  // we're adding an entry for the new controller and its actions
-  $controllers = array('login' => ['ReqHalLogin', 'cekLogin', 'logout'],
-                       'sertifikat' => ['ReqHalBeranda', 'ReqHalUnggah', 'UnggahFile', 'HapusFile', 'ReqListSertifikat', 'ReqHalKomen', 'Komen']);
-
-/*  if (array_key_exists($controller, $controllers)) {
-    if (in_array($action, $controllers[$controller])) {
-*/      call($controller, $action); /* post index */
- /*   } else {
-      call('pages', 'error');
-    }
-  } else {
-    call('pages', 'error');
-  }*/
+  call($controller, $action);
 ?>

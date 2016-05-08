@@ -16,10 +16,7 @@
       $this->waktu          = $waktu;
     }
 
-//$coment_query = mysql_query("SELECT * FROM posting_coment WHERE id_posting = $id");
-  //              while($coment = mysql_fetch_array($coment_query))
-
-
+    //Ambil semua data sertifikat
     public static function read() {
       $list = [];
       $db = Db::getInstance();
@@ -33,21 +30,23 @@
       return $list;
     }
 
+    //Ambil data sertifikat berdasarkan id_sertifikat
     public static function readOne($id) {
       $list = [];
       $db = Db::getInstance();
-      $req = $db->query("SELECT * FROM `sertifikat` WHERE `id_sertifikat` = $id");
-      foreach($req->fetchAll() as $post) {
-        $list[] = new Sertifikat($post['id_sertifikat'], $post['id_user'],  $post['nama_file'], $post['keterangan'], $post['id_category'], $post['waktu']);
-      }
 
-      return $list;
+      $req = $db->prepare('SELECT * FROM sertifikat WHERE id_sertifikat = :id_sertifikat');
+      $req->execute(array('id_sertifikat' => $id));
+      $post = $req->fetch();
+
+      return new Sertifikat($post['id_sertifikat'], $post['id_user'],  $post['nama_file'], $post['keterangan'], $post['id_category'], $post['waktu']);
     }
 
+    //Ambil data user berdasarkan nomor_induk
     public static function readUser($nomor_induk) {
       $db = Db::getInstance();
-      // we make sure $id is an integer
-      $nomor_induk = intval($nomor_induk);
+
+      //$nomor_induk = intval($nomor_induk);
       $req = $db->prepare('SELECT * FROM user WHERE nomor_induk = :nomor_induk');
       $req->execute(array('nomor_induk' => $nomor_induk));
       $post = $req->fetch();
@@ -55,6 +54,7 @@
       return new User($post['nomor_induk'], $post['password'], $post['nama'], $post['fakultas'], $post['jurusan'], $post['ttl'], $post['jenis_kelamin'], $post['status']);
     }
 
+    //Ambil data sertifikat berdasarkan id_user
     public static function mylist($nomor_induk) {
       $list = [];
       $db = Db::getInstance();
@@ -68,11 +68,15 @@
       return $list;
     }
 
+    //Pembuatan sertifikat baru / upload file sertifikat
     public static function create($nomor_induk, $ket, $kategori, $tingkatan) {
       $db = Db::getInstance();
 
       //cari id_kategori dulu
-        
+        $req = $db->prepare('SELECT * FROM category WHERE judul = :kategori AND tingkatan = :tingkatan');
+        $req->execute(array('kategori' => $kategori,'tingkatan' => $tingkatan));
+        $post = $req->fetch();
+        $id_category = $post['id_category'];
 
       //upload file
         $fileName = $_FILES['file_input']['name'];    // membaca nama 
@@ -86,19 +90,15 @@
         $fileSize = $_FILES['file_input']['size'];        // membaca ukuran file yang diupload
         $fileType = $_FILES['file_input']['type'];    // membaca jenis file yang diupload
 
-        //'application/pdf'
-        //if ($fileType == 'application/pdf'){
-            $uploadfile = $uploaddir . $fileName;       // menggabungkan nama folder dan nama file      
-            move_uploaded_file($tmpName, $uploadfile); 
-            //baru insert
-            $req = $db->query("INSERT INTO `sertifikat`( `id_user` , `nama_file` , `keterangan` , `id_category`) VALUES ( '$nomor_induk' , '$fileName' , '$ket' , '1' )");
+        $uploadfile = $uploaddir . $fileName;       // menggabungkan nama folder dan nama file      
+        move_uploaded_file($tmpName, $uploadfile); 
 
-//        }
-
-      //INSERT INTO `sertifikat_comment`(`id_comment`, `id_sertifikat`, `id_user`, `isi`, `waktu`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5])
+      //baru insert
+        $req = $db->query("INSERT INTO `sertifikat`( `id_user` , `nama_file` , `keterangan` , `id_category`) VALUES ( '$nomor_induk' , '$fileName' , '$ket' , '$id_category' )");
 
     }
 
+    //Penghapusan file sertifikat
     public static function delete($id_sertifikat) {
       $db = Db::getInstance();
       $req = $db->query("DELETE FROM `sertifikat` WHERE id_sertifikat = $id_sertifikat");

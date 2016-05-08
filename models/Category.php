@@ -12,12 +12,12 @@
       $this->nilai          = $nilai;
     }
 
+    //Ambil semua nilai category
     public static function readCategory() {
       $list = [];
       $db = Db::getInstance();
       $req = $db->query("SELECT * FROM `category` GROUP BY `judul`");
 
-      // we create a list of Post objects from the database results
       foreach($req->fetchAll() as $post) {
         $list[] = new Category($post['id_category'], $post['judul'], $post['tingkatan'], $post['nilai']);
       }
@@ -25,16 +25,26 @@
       return $list;
     }
 
+    //Ambil nilai tingkatan berdasarkan category
     public static function readTingkatan($judul) {
       $list = [];
       $db = Db::getInstance();
       $req = $db->query("SELECT * FROM category WHERE judul = $judul");
 
-      // we create a list of Post objects from the database results
       foreach($req->fetchAll() as $post) {
         $list[] = new Category($post['id_category'], $post['judul'], $post['tingkatan'], $post['nilai']);
       }
       return $list;
+    }
+
+    //Ambil jenis category berdasarkan id nya
+    public static function readCategoryById($id_category) {
+      $db = Db::getInstance();
+      $req = $db->prepare('SELECT * FROM category WHERE id_category = :id_category');
+      $req->execute(array('id_category' => $id_category));
+      $post = $req->fetch();
+
+      return new Category($post['id_category'], $post['judul'], $post['tingkatan'], $post['nilai']);
     }
 
   }

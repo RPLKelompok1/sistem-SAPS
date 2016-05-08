@@ -31,25 +31,33 @@
         echo"<script>alert('Username atau Password salah');window.history.go(-1);</script>";
       }
     }
-  /*  0. mahasiswa
-  1. dosen penilai
-  2. mahasiswa
-  */
+    /*  0. mahasiswa
+    1. dosen penilai
+    2. admin
+    */
     public function cekSession() {
-//      session_start();
+      session_start();?>
+      <link href="views/css/bootstrap.min.css" rel="stylesheet">
+      <link href="views/css/portfolio-item.css" rel="stylesheet">
+      <?php
       if (isset($_SESSION['status'])) {
         if ($_SESSION['status'] == 0 ) {
-          # code...
+          include "menu/menu_mahasiswa.php";
         } else if ($_SESSION['status'] == 1 ) {
-          # code...
+          include "menu/menu_dosen.php";
         } else {
-
+          include "menu/menu_admin.php";
         }
       } else {
         echo"<script>alert('Anda belum login');</script><script>location.href='?controller=login&action=ReqHalLogin';</script>";
-//    die("<script>alert('Anda tidak memiliki hak akses');</script><script>location.href='home.php';</script>");
       }
-
     }
+
+    public function ReqUser($nomor_induk) {
+      //Ambil nilai user
+      $user = User::readUser($nomor_induk);
+      return $user;
+    }
+    
   }
 ?>
