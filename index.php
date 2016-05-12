@@ -1,13 +1,10 @@
 <?php
-  require_once('connection.php');
 
-  if (isset($_GET['controller']) && isset($_GET['action'])) {
-    $controller = $_GET['controller'];
-    $action     = $_GET['action'];
-  } else {
-    $controller = 'login';
-    $action     = 'ReqHalLogin';
-  }
+//1 berarti file connection.php ada
+if (file_exists("web/connection.php") == 1) {
+	echo "<script>location.href='web/';</script>\n";
+} else {
+	echo "<script>location.href='config.php';</script>\n";
+}
 
-  require_once('views/layout.php');
 ?>
