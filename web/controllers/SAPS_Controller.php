@@ -93,7 +93,7 @@
           $total_nilai_j3 += $hasil->nilai; 
         } 
         $total_nilai = $total_nilai_j1 + $total_nilai_j2 + $total_nilai_j3;
-        if ( $total_nilai >= 50 && 0.25 * $total_nilai <= $total_nilai_j1 && 0.45 * $total_nilai <= $total_nilai_j2  && 0.2 * $total_nilai <= $total_nilai_j3 ) {
+        if ( $total_nilai >= 50 /*&& 0.25 * $total_nilai <= $total_nilai_j1 && 0.45 * $total_nilai <= $total_nilai_j2  && 0.2 * $total_nilai <= $total_nilai_j3*/ ) {
 
           //Pendaftaran sukses  
             Pendaftaran_SAPS::create($nomor_induk,$total_nilai);

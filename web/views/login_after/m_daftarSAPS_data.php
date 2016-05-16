@@ -29,7 +29,7 @@
         <div style="padding:20px;">
           <?php
           //$action=;
-          $controller = new Sertifikat_Controller();   
+          $controller = new Login_Controller();   
           $user=$controller->{ "ReqUser" }($post->id_pendaftar);
           //$user = User::readUser($post->id_user);
           echo"<h3 style='margin-left:30px'> $user->nama </h3>" 

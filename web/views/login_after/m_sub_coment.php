@@ -20,7 +20,7 @@
       <div style="background-color:#f5f5f5">
         <div style="padding:20px;">
           <?php
-          $controller = new Sertifikat_Controller();
+          $controller = new Login_Controller();
           $user=$controller->{ "ReqUser" }($sertifikat->id_user);
           //$user = User::readUser($post->id_user);
           echo"<p> $user->nama </p>"; 
@@ -45,7 +45,7 @@
         <div style="background-color:#f5f5f5;border-radius:20px;">
           <div style="padding:20px;">
               <?php
-              $controller = new Sertifikat_Controller();   
+              $controller = new Login_Controller();   
               $user=$controller->{ "ReqUser" }($comment->id_user);
               echo"<p style='color:#fbb254'> $user->nama </p>" ;
               echo"<p style='color:#fbb254'> $comment->id_user </p>"; 

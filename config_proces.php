@@ -236,7 +236,7 @@
 	    2. admin
 	    */
 		$conn->query(" 
-		INSERT INTO `user` (`nomor_induk`, `password`, `nama`, `fakultas`, `jurusan`, `ttl`, `jenis_kelamin`, `status`) VALUES (1311522013, 123, 'Ikhwan', 'FTI', 'SI', STR_TO_DATE('22-03-1997', '%d-%m-%Y'), '', 0),(1234 , 1234, 'Dosen', 'FTI', 'SI', '', '', 1),(123, 123, 'admin', 'FTI', 'SI', '', '', 2);");
+		INSERT INTO `user` (`nomor_induk`, `password`, `nama`, `fakultas`, `jurusan`, `ttl`, `jenis_kelamin`, `status`) VALUES (1311522013, 123, 'Ikhwan', 'FTI', 'SI', STR_TO_DATE('22-03-1997', '%d-%m-%Y'), '', 0),(1311521017, 123, 'Miftahul Jannah', 'FTI', 'SI', STR_TO_DATE('00-00-0000', '%d-%m-%Y'), '', 0),(1311521003, 123, 'Winalda Ridovanov', 'FTI', 'SI', STR_TO_DATE('00-00-0000', '%d-%m-%Y'), '', 0),(1311521045, 123, 'Resti Yulihasanah', 'FTI', 'SI', STR_TO_DATE('00-00-0000', '%d-%m-%Y'), '', 0),(1311521029, 123, 'Riyan Meidia Putra', 'FTI', 'SI', STR_TO_DATE('00-00-0000', '%d-%m-%Y'), '', 0),(1234 , 1234, 'Dosen', 'FTI', 'SI', '', '', 1),(123, 123, 'admin', 'FTI', 'SI', '', '', 2);");
 
 		echo "<script>alert('Configurasi berhasil dilakukan');</script>";
 		echo "<script>location.href='web/';</script>\n";

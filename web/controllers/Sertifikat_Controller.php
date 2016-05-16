@@ -40,13 +40,6 @@
       require_once('views/login_after/m_mylist.php');
     }
 
-//coba pndh ke login control
-    public function ReqUser($nomor_induk) {
-      //Ambil nilai user
-      $user = User::readUser($nomor_induk);
-      return $user;
-    }
-
     public function UnggahFile() {
       $controller_se = new Login_Controller();  
       $user=$controller_se->{ "cekSession" }();

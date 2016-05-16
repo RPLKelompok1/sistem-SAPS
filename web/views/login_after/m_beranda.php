@@ -18,7 +18,7 @@
           <div style="padding:20px;">
             <?php
             //$action=;
-            $controller = new Sertifikat_Controller();   
+            $controller = new Login_Controller();   
             $user=$controller->{ "ReqUser" }($post->id_user);
             //$user = User::readUser($post->id_user);
             echo"<p> $user->nama </p>" 
